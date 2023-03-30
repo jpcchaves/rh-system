@@ -6,4 +6,5 @@ import com.jpcchaves.departmentservice.repository.DepartmentRepository;
 
 public interface DepartmentService {
     DepartmentDto save(DepartmentDto departmentDto);
+    DepartmentDto getDepartmentByCode(String departmentCode);
 }
