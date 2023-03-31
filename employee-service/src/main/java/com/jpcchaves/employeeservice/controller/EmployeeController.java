@@ -2,12 +2,10 @@ package com.jpcchaves.employeeservice.controller;
 
 import com.jpcchaves.employeeservice.dto.EmployeeDto;
 import com.jpcchaves.employeeservice.service.EmployeeService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -22,5 +20,10 @@ public class EmployeeController {
     @PostMapping
     public ResponseEntity<EmployeeDto> create(@RequestBody EmployeeDto employeeDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.create(employeeDto));
+    }
+
+    @GetMapping("/{employee-id}")
+    public ResponseEntity<EmployeeDto> getById(@PathVariable(name = "employee-id") Long employeeId) {
+        return ResponseEntity.status(HttpStatus.OK).body(employeeService.getById(employeeId));
     }
 }
