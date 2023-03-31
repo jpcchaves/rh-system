@@ -24,4 +24,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee newEmployee = repository.save(employee);
         return mapperUtils.parseObject(newEmployee, EmployeeDto.class);
     }
+
+    @Override
+    public EmployeeDto getById(Long employeeId) {
+        Employee employee = repository.findById(employeeId).orElseThrow(() -> new RuntimeException("Could not find employee"));
+        return mapperUtils.parseObject(employee, EmployeeDto.class);
+    }
 }

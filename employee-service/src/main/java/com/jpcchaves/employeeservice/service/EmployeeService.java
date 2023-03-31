@@ -4,4 +4,5 @@ import com.jpcchaves.employeeservice.dto.EmployeeDto;
 
 public interface EmployeeService {
     EmployeeDto create(EmployeeDto employeeDto);
+    EmployeeDto getById(Long employeeId);
 }
