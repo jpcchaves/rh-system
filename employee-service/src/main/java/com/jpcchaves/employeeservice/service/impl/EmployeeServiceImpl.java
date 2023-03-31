@@ -8,7 +8,7 @@ import com.jpcchaves.employeeservice.utils.MapperUtils;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService<EmployeeDto> {
+public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository repository;
     private final MapperUtils mapperUtils;

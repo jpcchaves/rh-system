@@ -1,5 +1,7 @@
 package com.jpcchaves.employeeservice.service;
 
-public interface EmployeeService<T> {
-    T create(T employeeDto);
+import com.jpcchaves.employeeservice.dto.EmployeeDto;
+
+public interface EmployeeService {
+    EmployeeDto create(EmployeeDto employeeDto);
 }
