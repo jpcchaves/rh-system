@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
-    private DepartmentRepository repository;
-    private MapperUtils mapperUtils;
+    private final DepartmentRepository repository;
+    private final MapperUtils mapperUtils;
 
     public DepartmentServiceImpl(DepartmentRepository repository, MapperUtils mapperUtils) {
         this.repository = repository;
