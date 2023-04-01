@@ -1,5 +1,6 @@
 package com.jpcchaves.employeeservice.controller;
 
+import com.jpcchaves.employeeservice.dto.APIResponseDto;
 import com.jpcchaves.employeeservice.dto.EmployeeDto;
 import com.jpcchaves.employeeservice.service.EmployeeService;
 import jakarta.websocket.server.PathParam;
@@ -23,7 +24,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{employee-id}")
-    public ResponseEntity<EmployeeDto> getById(@PathVariable(name = "employee-id") Long employeeId) {
+    public ResponseEntity<APIResponseDto> getById(@PathVariable(name = "employee-id") Long employeeId) {
         return ResponseEntity.status(HttpStatus.OK).body(employeeService.getById(employeeId));
     }
 }
