@@ -43,7 +43,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = repository.findById(employeeId).orElseThrow(() -> new RuntimeException("Could not find employee"));
         DepartmentDto departmentDto = webClient
                 .get()
-                .uri("http://localhost:8080/api/departments/")
+                .uri("http://localhost:8080/api/departments/" + employee.getDepartmentCode())
                 .retrieve()
                 .bodyToMono(DepartmentDto.class)
                 .block();
@@ -55,7 +55,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         );
     }
 
-    public APIResponseDto getDefaultDepartment(Long employeeId){
+    public APIResponseDto getDefaultDepartment(Long employeeId, Exception exception){
         Employee employee = repository.findById(employeeId).orElseThrow(() -> new RuntimeException("Could not find employee"));
         DepartmentDto departmentDto = new DepartmentDto();
 
