@@ -8,13 +8,16 @@ import com.jpcchaves.employeeservice.repository.EmployeeRepository;
 import com.jpcchaves.employeeservice.service.APIClient;
 import com.jpcchaves.employeeservice.service.EmployeeService;
 import com.jpcchaves.employeeservice.utils.MapperUtils;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(EmployeeServiceImpl.class);
     private final EmployeeRepository repository;
     private final MapperUtils mapperUtils;
     private final WebClient webClient;
@@ -38,8 +41,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    @CircuitBreaker(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment ")
+//    @CircuitBreaker(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
+    @Retry(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
     public APIResponseDto getById(Long employeeId) {
+
+        LOGGER.info("inside getEmployeeById method");
+
         Employee employee = repository.findById(employeeId).orElseThrow(() -> new RuntimeException("Could not find employee"));
         DepartmentDto departmentDto = webClient
                 .get()
@@ -55,7 +62,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         );
     }
 
-    public APIResponseDto getDefaultDepartment(Long employeeId, Exception exception){
+    public APIResponseDto getDefaultDepartment(Long employeeId, Exception exception) {
+
+        LOGGER.info("inside fallback method");
+
         Employee employee = repository.findById(employeeId).orElseThrow(() -> new RuntimeException("Could not find employee"));
         DepartmentDto departmentDto = new DepartmentDto();
 
