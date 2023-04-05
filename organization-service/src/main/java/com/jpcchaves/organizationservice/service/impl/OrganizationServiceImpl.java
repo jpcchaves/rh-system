@@ -26,4 +26,13 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         return mapper.parseObject(savedOrganization, OrganizationDto.class);
     }
+
+    @Override
+    public OrganizationDto getByOrganizationCode(String organizationCode) {
+        Organization organization = repository
+                .findOrganizationByOrganizationCode(organizationCode)
+                .orElseThrow(() -> new RuntimeException("Could not find organization"));
+
+        return mapper.parseObject(organization, OrganizationDto.class);
+    }
 }

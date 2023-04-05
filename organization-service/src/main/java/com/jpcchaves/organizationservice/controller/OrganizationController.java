@@ -5,10 +5,7 @@ import com.jpcchaves.organizationservice.entity.Organization;
 import com.jpcchaves.organizationservice.service.OrganizationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/organizations")
@@ -24,5 +21,12 @@ public class OrganizationController {
     public ResponseEntity<OrganizationDto> create(@RequestBody OrganizationDto organizationDto) {
         OrganizationDto createdOrganization = service.create(organizationDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdOrganization);
+    }
+
+    @GetMapping("/{organization-code}")
+    public ResponseEntity<OrganizationDto> getByOrganizationCode(@PathVariable(name = "organization-code")
+                                                                     String organizationCode) {
+        OrganizationDto organizationDto = service.getByOrganizationCode(organizationCode);
+        return ResponseEntity.status(HttpStatus.OK).body(organizationDto);
     }
 }
