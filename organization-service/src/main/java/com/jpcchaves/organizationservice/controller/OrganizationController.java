@@ -1,7 +1,6 @@
 package com.jpcchaves.organizationservice.controller;
 
 import com.jpcchaves.organizationservice.dto.OrganizationDto;
-import com.jpcchaves.organizationservice.entity.Organization;
 import com.jpcchaves.organizationservice.service.OrganizationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
