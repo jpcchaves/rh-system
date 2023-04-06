@@ -3,6 +3,7 @@ package com.jpcchaves.employeeservice.service.impl;
 import com.jpcchaves.employeeservice.dto.APIResponseDto;
 import com.jpcchaves.employeeservice.dto.DepartmentDto;
 import com.jpcchaves.employeeservice.dto.EmployeeDto;
+import com.jpcchaves.employeeservice.dto.OrganizationDto;
 import com.jpcchaves.employeeservice.entity.Employee;
 import com.jpcchaves.employeeservice.repository.EmployeeRepository;
 import com.jpcchaves.employeeservice.service.APIClient;
@@ -48,17 +49,27 @@ public class EmployeeServiceImpl implements EmployeeService {
         LOGGER.info("inside getEmployeeById method");
 
         Employee employee = repository.findById(employeeId).orElseThrow(() -> new RuntimeException("Could not find employee"));
+
+        OrganizationDto organizationDto = webClient
+                .get()
+                .uri("http://localhost:8083/api/organizations" + employee.getOrganizationCode())
+                .retrieve()
+                .bodyToMono(OrganizationDto.class)
+                .block();
+
         DepartmentDto departmentDto = webClient
                 .get()
                 .uri("http://localhost:8080/api/departments/" + employee.getDepartmentCode())
                 .retrieve()
                 .bodyToMono(DepartmentDto.class)
                 .block();
+
         EmployeeDto employeeDto = mapperUtils.parseObject(employee, EmployeeDto.class);
 
         return new APIResponseDto(
                 departmentDto,
-                employeeDto
+                employeeDto,
+                organizationDto
         );
     }
 
@@ -77,7 +88,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return new APIResponseDto(
                 departmentDto,
-                employeeDto
+                employeeDto,
+                new OrganizationDto()
         );
     }
 }
