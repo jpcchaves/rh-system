@@ -1,11 +1,36 @@
 package com.jpcchaves.employeeservice.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(
+        description = "EmployeeDto Model Information"
+)
 public class EmployeeDto {
     private Long id;
+    @Schema(
+            description = "Employee First Name",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private String firstName;
+    @Schema(
+            description = "Employee Last Name",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private String lastName;
+    @Schema(
+            description = "Employee Email",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private String email;
+    @Schema(
+            description = "Employee Department",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private String departmentCode;
+    @Schema(
+            description = "Employee Organization",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private String organizationCode;
 
     public EmployeeDto() {
