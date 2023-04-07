@@ -1,11 +1,28 @@
 package com.jpcchaves.organizationservice.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.time.LocalDateTime;
 
+@Schema(
+        description = "OrganizationDto Model Information"
+)
 public class OrganizationDto {
     private Long id;
+    @Schema(
+            description = "Organization Name",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private String organizationName;
+    @Schema(
+            description = "Organization Description",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private String organizationDescription;
+    @Schema(
+            description = "Organization Code",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private String organizationCode;
     private LocalDateTime createdAt;
 
